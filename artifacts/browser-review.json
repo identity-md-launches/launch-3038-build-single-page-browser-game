@@ -1,0 +1,98 @@
+{
+  "browser": "158.0.8127.18",
+  "firstScreen": {
+    "width": 390,
+    "height": 844,
+    "documentWidth": 390,
+    "action": {
+      "x": 37,
+      "y": 393.78125,
+      "width": 316,
+      "height": 316,
+      "bottom": 709.78125
+    }
+  },
+  "pressed": {
+    "transform": "matrix(0.96, 0, 0, 0.96, 0, 0)",
+    "filter": "brightness(1.06)"
+  },
+  "contrastPairs": [
+    {
+      "name": "Primary text / page",
+      "foreground": "rgb(246, 243, 236)",
+      "background": "rgb(16, 19, 25)",
+      "ratio": 16.78
+    },
+    {
+      "name": "Secondary text / page",
+      "foreground": "rgb(168, 178, 195)",
+      "background": "rgb(16, 19, 25)",
+      "ratio": 8.7
+    },
+    {
+      "name": "Description / upgrade surface",
+      "foreground": "rgb(168, 178, 195)",
+      "background": "rgb(25, 30, 39)",
+      "ratio": 7.82
+    },
+    {
+      "name": "Level text / level fill",
+      "foreground": "rgb(163, 202, 255)",
+      "background": "rgb(28, 48, 76)",
+      "ratio": 7.9
+    },
+    {
+      "name": "Disabled buy label / disabled fill",
+      "foreground": "rgb(168, 178, 195)",
+      "background": "rgb(41, 49, 62)",
+      "ratio": 6.13
+    },
+    {
+      "name": "Balance / page",
+      "foreground": "rgb(255, 212, 119)",
+      "background": "rgb(16, 19, 25)",
+      "ratio": 13.23
+    },
+    {
+      "name": "Help instructions / help panel",
+      "foreground": "rgb(210, 217, 229)",
+      "background": "rgb(32, 39, 51)",
+      "ratio": 10.57
+    },
+    {
+      "name": "Earned amount / feedback bubble",
+      "foreground": "rgb(255, 212, 119)",
+      "background": "rgb(48, 39, 25)",
+      "ratio": 10.45
+    },
+    {
+      "name": "Available buy label / available fill",
+      "foreground": "rgb(255, 212, 119)",
+      "background": "rgb(48, 39, 25)",
+      "ratio": 10.45
+    },
+    {
+      "name": "Available buy label / hovered fill",
+      "foreground": "rgb(255, 212, 119)",
+      "background": "rgb(32, 39, 51)",
+      "ratio": 10.67
+    }
+  ],
+  "purchaseFeedback": {
+    "before": 169.796875,
+    "long": 169.796875,
+    "short": 169.796875,
+    "initial": "Tap to fund your first upgrade.",
+    "longMessageShift": 0,
+    "shortMessageShift": 0
+  },
+  "syntheticLongNumberReflow": {
+    "documentWidth": 390,
+    "viewportWidth": 390
+  },
+  "shareCard": {
+    "width": 1200,
+    "height": 630,
+    "bytes": 130193
+  }
+}

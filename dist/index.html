@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101319">
+  <title>Squeekchain Tap | Hamster-powered internet economy</title>
+  <meta name="description" content="Tap a hamster, earn Squeeks, and grow your little economy. A free browser game with staking, mining, and account power. Game only, no real rewards.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Squeekchain Tap">
+  <meta property="og:description" content="Hamster-powered internet economy. Tap, stake, and mine Squeeks in a free browser game.">
+  <meta property="og:image" content="./assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Squeekchain Tap with a cheerful hamster holding a Squeek on a gold medallion.">
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+  <style>
+    :root {
+      color-scheme: dark;
+      --slate-950: #101319;
+      --slate-900: #191e27;
+      --slate-850: #202733;
+      --slate-800: #29313e;
+      --slate-700: #394353;
+      --slate-400: #a8b2c3;
+      --slate-200: #d2d9e5;
+      --slate-50: #f6f3ec;
+      --gold-300: #ffd477;
+      --gold-400: #f4bc55;
+      --gold-950: #302719;
+      --orange-400: #f6a65a;
+      --blue-300: #a3caff;
+      --blue-400: #78b1ff;
+      --blue-950: #1c304c;
+      --color-bg: var(--slate-950);
+      --color-surface: var(--slate-900);
+      --color-surface-hover: var(--slate-850);
+      --color-control: var(--slate-800);
+      --color-border: var(--slate-800);
+      --color-control-border: var(--slate-700);
+      --color-text: var(--slate-50);
+      --color-text-secondary: var(--slate-400);
+      --color-text-control: var(--slate-200);
+      --color-earn: var(--gold-300);
+      --color-progress: var(--gold-400);
+      --color-buy-bg: var(--gold-950);
+      --color-gain-bg: var(--gold-950);
+      --color-upgrade: var(--orange-400);
+      --color-info: var(--blue-300);
+      --color-info-bg: var(--blue-950);
+      --color-focus: var(--blue-400);
+      --text-caption: 0.875rem;
+      --text-body: 1rem;
+      --text-subheading: 1.25rem;
+      --text-heading: 1.5rem;
+      --text-balance: 4rem;
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --radius-card: 1rem;
+      --radius-control: 0.625rem;
+      font-family: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; color: var(--color-text); background: var(--color-bg); font-size: var(--text-body); line-height: 1.5; }
+    button { font: inherit; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+    button:disabled { cursor: not-allowed; }
+    button:focus-visible, a:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 5px; }
+    [hidden] { display: none !important; }
+    h1, h2, h3, p, dl, dd { margin: 0; }
+    h1, h2, h3 { font-weight: 700; line-height: 1.2; text-wrap: balance; }
+    p { text-wrap: pretty; }
+    svg { display: block; flex-shrink: 0; }
+    .number { font-variant-numeric: tabular-nums; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+    .skip-link { position: absolute; inset-block-start: 8px; inset-inline-start: 16px; z-index: 20; padding: 12px 16px; color: var(--color-info); background: var(--color-info-bg); transform: translateY(-200%); }
+    .skip-link:focus { transform: translateY(0); }
+    .shell { width: min(100%, 1168px); min-height: 100svh; margin-inline: auto; padding-inline: max(20px, env(safe-area-inset-left)) max(20px, env(safe-area-inset-right)); display: flex; flex-direction: column; }
+    .site-header { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 6px 12px; padding-block: var(--space-6); border-block-end: 1px solid var(--color-border); }
+    .brand { display: flex; align-items: center; gap: var(--space-3); }
+    .brand-mark { color: var(--color-upgrade); width: 32px; height: 32px; }
+    h1 { font-size: var(--text-subheading); letter-spacing: -0.025em; overflow-wrap: anywhere; }
+    .tagline { grid-column: 1 / -1; color: var(--color-text-secondary); font-size: var(--text-caption); }
+    .help-toggle { display: grid; place-items: center; width: 44px; min-height: 44px; padding: 0; border: 0; border-radius: 50%; background: var(--color-info-bg); color: var(--color-info); font-size: var(--text-subheading); font-weight: 700; }
+    .help-panel { position: absolute; z-index: 10; inset-block-start: 78px; inset-inline-end: 0; width: min(330px, 100%); padding: var(--space-6); border-radius: var(--radius-card); background: var(--color-surface-hover); box-shadow: 0 16px 48px #0008; }
+    .help-panel h2 { margin-block-end: var(--space-4); font-size: var(--text-subheading); }
+    .help-panel ol { display: grid; gap: var(--space-3); margin: 0; padding-inline-start: 20px; color: var(--color-text-control); font-size: var(--text-caption); }
+    .game-layout { display: grid; gap: var(--space-10); padding-block: var(--space-8) var(--space-10); }
+    .play-area { min-width: 0; text-align: center; }
+    .balance-number { display: block; color: var(--color-earn); font-size: var(--text-balance); font-weight: 700; letter-spacing: -0.045em; line-height: 1.1; overflow-wrap: anywhere; }
+    .balance-label { display: flex; justify-content: center; align-items: center; gap: 6px; margin-block-start: 6px; font-size: var(--text-body); color: var(--color-text-control); }
+    .balance-label svg { color: var(--color-progress); }
+    .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-2); margin-block-start: var(--space-6); }
+    .stat { display: flex; flex-direction: column; align-items: center; gap: 4px; padding-block: var(--space-3); }
+    .stat + .stat { border-inline-start: 1px solid var(--color-border); }
+    .stat dt { order: 1; font-size: var(--text-caption); color: var(--color-text-secondary); line-height: 1.45; overflow-wrap: anywhere; }
+    .stat dd { font-size: var(--text-heading); font-weight: 600; line-height: 1.2; overflow-wrap: anywhere; max-width: 100%; }
+    .stat:last-child dd { color: var(--color-upgrade); }
+    .coin-stage { position: relative; display: grid; place-items: center; width: min(100%, 316px); margin: var(--space-5) auto var(--space-4); isolation: isolate; }
+    .coin-stage::before { content: ""; position: absolute; inset: -4%; z-index: -1; pointer-events: none; background: radial-gradient(ellipse, #d9911920 0%, #d9911909 42%, transparent 69%); }
+    .coin-button { position: relative; width: 100%; aspect-ratio: 1; display: block; padding: 0; border: 0; border-radius: 50%; background: transparent; user-select: none; -webkit-user-select: none; }
+    .coin-button svg { width: 100%; height: auto; pointer-events: none; }
+    .tap-label { color: var(--color-text); font-size: var(--text-body); font-weight: 600; }
+    .tap-help { margin-block-start: 6px; color: var(--color-text-secondary); font-size: var(--text-caption); }
+    kbd { font: inherit; color: var(--color-text-control); }
+    .tap-gain { position: absolute; z-index: 2; pointer-events: none; padding: 6px 10px; border-radius: 999px; background: var(--color-gain-bg); color: var(--color-earn); font-size: var(--text-heading); font-weight: 700; line-height: 1; transform: translate(-50%, -50%); }
+    .shop { min-width: 0; }
+    .shop-heading { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+    .shop-heading h2 { font-size: var(--text-heading); letter-spacing: -0.025em; }
+    .shop-heading > span { color: var(--color-text-secondary); font-size: var(--text-caption); }
+    .shop-status { margin-block: var(--space-2) var(--space-5); min-height: 42px; font-size: var(--text-caption); color: var(--color-text-secondary); }
+    .upgrades { display: grid; gap: var(--space-3); }
+    .upgrade { padding: var(--space-5); border-radius: var(--radius-card); background: var(--color-surface); }
+    .upgrade-header { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+    .upgrade-icon { width: 28px; height: 28px; color: var(--color-upgrade); }
+    .upgrade h3 { flex: 1; min-width: min(100%, 8ch); font-size: var(--text-body); }
+    .level { padding: 3px 8px; border-radius: 6px; background: var(--color-info-bg); color: var(--color-info); font-size: var(--text-caption); white-space: nowrap; }
+    .upgrade-description { margin-block-start: var(--space-2); color: var(--color-text-secondary); font-size: var(--text-caption); line-height: 1.5; }
+    .upgrade-action { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); margin-block-start: var(--space-4); }
+    .upgrade-effect { color: var(--color-text-control); font-size: var(--text-caption); font-weight: 600; }
+    .buy-button { min-height: 44px; max-width: 100%; padding: 10px 14px; border: 1px solid var(--color-control-border); border-radius: var(--radius-control); background: var(--color-buy-bg); color: var(--color-earn); font-size: var(--text-caption); font-weight: 600; overflow-wrap: anywhere; }
+    .buy-button:disabled { background: var(--color-control); border-color: transparent; color: var(--color-text-secondary); }
+    .upgrade-progress { display: block; width: 100%; height: 5px; margin-block-start: var(--space-4); border: 0; border-radius: 4px; overflow: hidden; background: var(--color-control); color: var(--color-progress); appearance: none; -webkit-appearance: none; }
+    .upgrade-progress::-webkit-progress-bar { background: var(--color-control); border-radius: 4px; }
+    .upgrade-progress::-webkit-progress-value { background: var(--color-progress); border-radius: 4px; }
+    .upgrade-progress::-moz-progress-bar { background: var(--color-progress); border-radius: 4px; }
+    .session-note { display: flex; align-items: flex-start; gap: var(--space-2); margin-block-start: var(--space-5); color: var(--color-text-secondary); font-size: var(--text-caption); }
+    .session-note svg { width: 16px; height: 16px; margin-block-start: 3px; }
+    .site-footer { margin-block-start: auto; padding-block: var(--space-6) max(24px, env(safe-area-inset-bottom)); border-block-start: 1px solid var(--color-border); color: var(--color-text-secondary); font-size: var(--text-caption); text-align: center; }
+    .site-footer p { max-width: 65ch; margin-inline: auto; }
+    .site-footer svg { display: inline-block; margin-inline-end: 6px; vertical-align: -3px; color: var(--color-upgrade); }
+    .noscript { padding: var(--space-6); color: var(--color-text); background: var(--color-info-bg); }
+    @media (min-width: 36rem) {
+      .shell { padding-inline: var(--space-8); }
+      h1 { font-size: var(--text-heading); }
+      .site-header { padding-block: var(--space-8); }
+      .tagline { margin-inline-start: 44px; }
+      .game-layout { max-width: 560px; width: 100%; margin-inline: auto; }
+    }
+    @media (min-width: 58rem) {
+      .site-header { grid-template-columns: auto 1fr auto; gap: var(--space-6); }
+      .tagline { grid-column: 2; grid-row: 1; margin: 0; }
+      .help-toggle { grid-column: 3; grid-row: 1; }
+      .game-layout { max-width: none; grid-template-columns: minmax(0, 1fr) minmax(360px, 440px); gap: var(--space-12); padding-block: var(--space-10); }
+      .play-area { padding-inline-end: var(--space-6); }
+      .stats { margin-block-start: var(--space-5); }
+      .coin-stage { width: min(100%, 336px); margin-block-start: var(--space-6); }
+      .shop { padding-block-start: var(--space-2); }
+      .shop-status { min-height: 21px; }
+    }
+    @media (hover: hover) {
+      .help-toggle:hover { background: var(--color-surface-hover); }
+      .buy-button:not(:disabled):hover { background: var(--color-surface-hover); }
+      .coin-button:hover { filter: brightness(1.06); }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .coin-button { transition: transform 100ms cubic-bezier(0.2, 0, 0, 1), filter 100ms ease-out; }
+      .coin-button:active, .coin-button.is-pressed { transform: scale(0.96); }
+      .buy-button, .help-toggle { transition: background-color 120ms ease-out, transform 100ms cubic-bezier(0.2, 0, 0, 1); }
+      .buy-button:not(:disabled):active, .help-toggle:active { transform: scale(0.96); }
+      .tap-gain { animation: gain-float 680ms ease-out forwards; }
+      @keyframes gain-float {
+        0% { opacity: 1; transform: translate(-50%, -50%); }
+        70% { opacity: 1; }
+        100% { opacity: 0; transform: translate(-50%, -220%); }
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .tap-gain { inset: 18% auto auto 50% !important; }
+    }
+    @media (forced-colors: active) {
+      button:focus-visible, a:focus-visible { outline-color: Highlight; }
+      .buy-button, .help-toggle, .coin-button { border: 1px solid ButtonText; }
+      .buy-button:disabled { color: GrayText; }
+      .upgrade-progress { forced-color-adjust: none; background: Canvas; color: Highlight; }
+      .upgrade-progress::-webkit-progress-bar { background: Canvas; }
+      .upgrade-progress::-webkit-progress-value { background: Highlight; }
+      .upgrade-progress::-moz-progress-bar { background: Highlight; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#game">Skip to game</a>
+  <div class="shell">
+    <header class="site-header">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path d="M6.6 12.5C2 7.3 7 1.7 11.5 6.6a15.6 15.6 0 0 1 9 0C25 1.7 30 7.3 25.4 12.5c1.7 2.4 2.2 4.2 2.1 7-.2 6.1-5 9-11.5 9s-11.3-2.9-11.5-9c-.1-2.8.4-4.6 2.1-7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="11" cy="17" r="1.5" fill="currentColor"/><circle cx="21" cy="17" r="1.5" fill="currentColor"/>
+          <path d="m14 21 2 2 2-2m-2 2v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h1>Squeekchain Tap</h1>
+      </div>
+      <button class="help-toggle" id="help-toggle" type="button" aria-label="How to play" aria-controls="help-panel" aria-expanded="false">?</button>
+      <p class="tagline">Hamster-powered internet economy.</p>
+      <section class="help-panel" id="help-panel" aria-labelledby="help-title" hidden>
+        <h2 id="help-title">How to play</h2>
+        <ol>
+          <li>Tap to earn Squeeks.</li>
+          <li>Stake to build account power.</li>
+          <li>Mine to earn while you wait.</li>
+        </ol>
+      </section>
+    </header>
+
+    <main class="game-layout" id="game">
+      <section class="play-area" aria-label="Tap to earn Squeeks">
+        <div class="balance" role="group" aria-label="Squeeks balance">
+          <span class="balance-number number" id="balance">0</span>
+          <span class="balance-label">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M15 8.5c-3-2-6-.8-6 1.2 0 2.8 6 1.6 6 4.4 0 2-3 3.2-6 1.2M12 6v12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            Squeeks
+          </span>
+        </div>
+        <dl class="stats">
+          <div class="stat"><dt>Squeeks per tap</dt><dd class="number" id="per-tap">1</dd></div>
+          <div class="stat"><dt>Squeeks per second</dt><dd class="number" id="per-second">0</dd></div>
+          <div class="stat"><dt>Account power</dt><dd class="number" id="power">1x</dd></div>
+        </dl>
+        <div class="coin-stage" id="coin-stage">
+          <button class="coin-button" id="tap-button" type="button" aria-label="Tap to earn Squeeks, 1 per tap" aria-describedby="tap-help">
+            <svg id="hamster-art" viewBox="0 0 360 360" fill="none" aria-hidden="true" focusable="false">
+              <defs>
+                <linearGradient id="rim" x1="68" y1="25" x2="272" y2="340" gradientUnits="userSpaceOnUse"><stop stop-color="#ffe8a6"/><stop offset=".4" stop-color="#f3b543"/><stop offset="1" stop-color="#a85d16"/></linearGradient>
+                <linearGradient id="gold-face" x1="180" y1="41" x2="180" y2="321" gradientUnits="userSpaceOnUse"><stop stop-color="#fbd678"/><stop offset="1" stop-color="#e8a437"/></linearGradient>
+                <linearGradient id="hamster-fur" x1="180" y1="92" x2="180" y2="274" gradientUnits="userSpaceOnUse"><stop stop-color="#eda754"/><stop offset="1" stop-color="#c87a33"/></linearGradient>
+                <linearGradient id="little-squeek" x1="171" y1="214" x2="197" y2="262" gradientUnits="userSpaceOnUse"><stop stop-color="#ffe993"/><stop offset="1" stop-color="#f2b32c"/></linearGradient>
+                <filter id="medallion-shadow" x="0" y="0" width="360" height="360" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="7" stdDeviation="6" flood-color="#000" flood-opacity=".28"/></filter>
+              </defs>
+              <circle cx="180" cy="180" r="174" stroke="#c7a259" stroke-opacity=".2" stroke-dasharray="2 8"/>
+              <g filter="url(#medallion-shadow)">
+                <circle cx="180" cy="183" r="158" fill="#985819"/>
+                <circle cx="180" cy="177" r="158" fill="url(#rim)"/>
+                <circle cx="180" cy="177" r="148" stroke="#fff0b0" stroke-opacity=".7" stroke-width="2"/>
+                <circle cx="180" cy="177" r="141" stroke="#b47a28" stroke-width="5" stroke-dasharray="2 11"/>
+                <circle cx="180" cy="177" r="133" fill="url(#gold-face)" stroke="#ffdf85" stroke-width="3"/>
+                <path d="M72 126a119 119 0 0 1 190-39" stroke="#fff0ba" stroke-width="4" stroke-linecap="round" opacity=".65"/>
+                <ellipse cx="180" cy="283" rx="66" ry="10" fill="#a86c28" opacity=".22"/>
+                <ellipse cx="146" cy="272" rx="25" ry="13" fill="#f8deab" stroke="#a66b36" stroke-width="3"/>
+                <ellipse cx="214" cy="272" rx="25" ry="13" fill="#f8deab" stroke="#a66b36" stroke-width="3"/>
+                <path d="M111 222c0-38 24-64 69-64s69 26 69 64c0 38-30 58-69 58s-69-20-69-58Z" fill="url(#hamster-fur)" stroke="#a36732" stroke-width="3.5"/>
+                <ellipse cx="180" cy="235" rx="46" ry="40" fill="#fff0d0"/>
+                <circle cx="121" cy="115" r="28" fill="#d99148" stroke="#a36732" stroke-width="3.5"/>
+                <circle cx="121" cy="115" r="17" fill="#f5bd9e"/>
+                <circle cx="239" cy="115" r="28" fill="#d99148" stroke="#a36732" stroke-width="3.5"/>
+                <circle cx="239" cy="115" r="17" fill="#f5bd9e"/>
+                <path d="M180 101c-48 0-80 27-80 70 0 42 30 67 80 67s80-25 80-67c0-43-32-70-80-70Z" fill="url(#hamster-fur)" stroke="#a36732" stroke-width="3.5"/>
+                <path d="M180 146c-12 0-18 17-23 24-7 10-26 4-35 17-16 23 11 47 58 47s74-24 58-47c-9-13-28-7-35-17-5-7-11-24-23-24Z" fill="#fff0d0"/>
+                <path d="M170 106c1 10 6 14 12 15m-2-20c0 9 5 13 10 15" stroke="#b97838" stroke-width="3.5" stroke-linecap="round"/>
+                <ellipse cx="145" cy="167" rx="7" ry="9" fill="#32251f"/>
+                <circle cx="147" cy="164" r="2.5" fill="#fff8e9"/>
+                <ellipse cx="215" cy="167" rx="7" ry="9" fill="#32251f"/>
+                <circle cx="217" cy="164" r="2.5" fill="#fff8e9"/>
+                <ellipse cx="128" cy="187" rx="12" ry="7" fill="#ee9d7d" opacity=".75"/>
+                <ellipse cx="232" cy="187" rx="12" ry="7" fill="#ee9d7d" opacity=".75"/>
+                <path d="M173 185c0-5 14-5 14 0 0 3-7 7-7 7s-7-4-7-7Z" fill="#a75c45"/>
+                <path d="M180 193v4m0 0c-5 6-10 4-12 1m12-1c5 6 10 4 12 1" stroke="#704427" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="m108 183-14-3m15 12-14 3m156-12 14-3m-15 12 14 3" stroke="#a36732" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="180" cy="242" r="28" fill="#be7f1d"/>
+                <circle cx="180" cy="239" r="28" fill="url(#little-squeek)" stroke="#b97d21" stroke-width="2.5"/>
+                <circle cx="180" cy="239" r="21" stroke="#db9a2b" stroke-width="2"/>
+                <path d="M186 230c-10-6-17 3-7 7l3 1c10 4 3 13-7 7m5-21v28" stroke="#a76a1a" stroke-width="3" stroke-linecap="round"/>
+                <path d="M134 216c-10 1-12 13-2 20l17 10c9 5 16-6 9-12l-14-14c-3-3-6-4-10-4Z" fill="#f6d8a8" stroke="#a36732" stroke-width="3"/>
+                <path d="M226 216c10 1 12 13 2 20l-17 10c-9 5-16-6-9-12l14-14c3-3 6-4 10-4Z" fill="#f6d8a8" stroke="#a36732" stroke-width="3"/>
+                <path d="m140 229 7 6m73-6-7 6" stroke="#c19768" stroke-width="2" stroke-linecap="round"/>
+                <path d="m78 191 3 8 8 3-8 3-3 8-3-8-8-3 8-3Zm197-78 3 7 7 3-7 3-3 7-3-7-7-3 7-3Z" fill="#ffedb1"/>
+              </g>
+            </svg>
+          </button>
+          <div id="tap-effects" aria-hidden="true"></div>
+        </div>
+        <p class="tap-label">Tap the hamster. Earn Squeeks.</p>
+        <p class="tap-help" id="tap-help">Or focus it and press <kbd>Space</kbd> or <kbd>Enter</kbd>.</p>
+        <p class="sr-only" id="earn-status" role="status" aria-atomic="true"></p>
+      </section>
+
+      <section class="shop" aria-labelledby="shop-title">
+        <div class="shop-heading"><h2 id="shop-title">Shop</h2><span>3 upgrades</span></div>
+        <p class="shop-status" id="shop-status" role="status" aria-atomic="true">Tap to fund your first upgrade.</p>
+        <div class="upgrades">
+          <article class="upgrade" data-upgrade="stake">
+            <div class="upgrade-header">
+              <svg class="upgrade-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M14 12V5m0 4c-5 0-8-3-8-6 5 0 8 2 8 6Zm0 3c0-5 3-8 8-8 0 5-3 8-8 8Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="14" cy="17" rx="9" ry="4" stroke="currentColor" stroke-width="1.8"/><path d="M5 17v5c0 2.2 4 4 9 4s9-1.8 9-4v-5m-13 4v4m8-4v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              <h3 id="stake-title">Stake a Squeek</h3><span class="level number" id="stake-level">Level 0</span>
+            </div>
+            <p class="upgrade-description" id="stake-description">Staking builds account power.</p>
+            <div class="upgrade-action"><span class="upgrade-effect">+1 per tap</span><button class="buy-button" id="buy-stake" type="button" aria-describedby="stake-title stake-description" disabled>Buy for <span class="number" id="stake-price">15</span> Squeeks</button></div>
+            <progress class="upgrade-progress" id="stake-progress" max="15" value="0" aria-label="Squeeks toward Stake a Squeek"></progress>
+          </article>
+          <article class="upgrade" data-upgrade="mining">
+            <div class="upgrade-header">
+              <svg class="upgrade-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true"><rect x="4" y="4" width="20" height="8" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="4" y="16" width="20" height="8" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 8h1m4 0h7M8 20h1m4 0h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <h3 id="mining-title">Mining rig</h3><span class="level number" id="mining-level">Level 0</span>
+            </div>
+            <p class="upgrade-description" id="mining-description">Share in mining rewards from settled work.</p>
+            <div class="upgrade-action"><span class="upgrade-effect">+1 per second</span><button class="buy-button" id="buy-mining" type="button" aria-describedby="mining-title mining-description" disabled>Buy for <span class="number" id="mining-price">30</span> Squeeks</button></div>
+            <progress class="upgrade-progress" id="mining-progress" max="30" value="0" aria-label="Squeeks toward Mining rig"></progress>
+          </article>
+          <article class="upgrade" data-upgrade="power">
+            <div class="upgrade-header">
+              <svg class="upgrade-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="m16 2-11 14h8l-1 10L24 11h-9l1-9Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <h3 id="power-title">Account power</h3><span class="level number" id="power-level">Level 0</span>
+            </div>
+            <p class="upgrade-description" id="power-description">Higher account power, higher rewards.</p>
+            <div class="upgrade-action"><span class="upgrade-effect">+0.5x all earnings</span><button class="buy-button" id="buy-power" type="button" aria-describedby="power-title power-description" disabled>Buy for <span class="number" id="power-price">60</span> Squeeks</button></div>
+            <progress class="upgrade-progress" id="power-progress" max="60" value="0" aria-label="Squeeks toward Account power"></progress>
+          </article>
+        </div>
+        <p class="session-note"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M10 6v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Just for this visit. Refreshing resets your progress.</span></p>
+      </section>
+    </main>
+    <footer class="site-footer"><p><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m10 3 1.8 4.7L17 10l-5.2 2.3L10 17l-1.8-4.7L3 10l5.2-2.3L10 3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>A game for the Squeekchain hamster economy. Game only, no real tokens or rewards.</p></footer>
+  </div>
+  <noscript><p class="noscript">Enable JavaScript to tap the hamster and earn Squeeks. This game runs entirely in your browser.</p></noscript>
+  <script id="game-script">
+    // @ts-check
+    (() => {
+      'use strict';
+
+      /** @typedef {'stake' | 'mining' | 'power'} UpgradeKind */
+      /** @typedef {{ name: string, basePrice: number, level: number }} Upgrade */
+      /** @type {Record<UpgradeKind, Upgrade>} */
+      const upgrades = {
+        stake: { name: 'Stake a Squeek', basePrice: 15, level: 0 },
+        mining: { name: 'Mining rig', basePrice: 30, level: 0 },
+        power: { name: 'Account power', basePrice: 60, level: 0 }
+      };
+      // Integer half-Squeek units keep tap rewards and spending exact at 0.5x steps.
+      let balanceUnits = 0;
+      let miningCarry = 0;
+      let lastSettlement = performance.now();
+      let pressTimer = 0;
+      let earnTimer = 0;
+      const formatter = new Intl.NumberFormat('en-US', { maximumFractionDigits: 1 });
+
+      /** @template {HTMLElement} T @param {string} id @param {{new (...args: any[]): T}} elementType @returns {T} */
+      function element(id, elementType) {
+        const result = document.getElementById(id);
+        if (!(result instanceof elementType)) throw new Error(`Missing game element: ${id}`);
+        return result;
+      }
+
+      const balanceElement = element('balance', HTMLSpanElement);
+      const tapStat = element('per-tap', HTMLElement);
+      const secondStat = element('per-second', HTMLElement);
+      const powerStat = element('power', HTMLElement);
+      const tapButton = element('tap-button', HTMLButtonElement);
+      const earnStatus = element('earn-status', HTMLParagraphElement);
+      const effects = element('tap-effects', HTMLDivElement);
+      const stage = element('coin-stage', HTMLDivElement);
+      const shopStatus = element('shop-status', HTMLParagraphElement);
+      const helpToggle = element('help-toggle', HTMLButtonElement);
+      const helpPanel = element('help-panel', HTMLElement);
+      // Read the current preference on input: WebKit can retain a stale unobserved MediaQueryList.
+      const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const kinds = /** @type {UpgradeKind[]} */ (Object.keys(upgrades));
+      const controls = kinds.map(kind => ({
+        kind,
+        button: element(`buy-${kind}`, HTMLButtonElement),
+        level: element(`${kind}-level`, HTMLSpanElement),
+        price: element(`${kind}-price`, HTMLSpanElement),
+        progress: element(`${kind}-progress`, HTMLProgressElement)
+      }));
+
+      const multiplierUnits = () => 2 + upgrades.power.level;
+      const tapUnits = () => (1 + upgrades.stake.level) * multiplierUnits();
+      /** @param {Upgrade} upgrade */
+      const priceOf = upgrade => Math.ceil(upgrade.basePrice * 1.6 ** upgrade.level);
+      /** @param {number} value */
+      const format = value => formatter.format(value);
+
+      // Settle elapsed time before changing a rate, so a new upgrade never earns retroactively.
+      function settleMining() {
+        const now = performance.now();
+        miningCarry += Math.max(0, now - lastSettlement) / 1000 * upgrades.mining.level * multiplierUnits();
+        lastSettlement = now;
+        const earned = Math.floor(miningCarry + 1e-9);
+        if (earned > 0) {
+          balanceUnits += earned;
+          miningCarry = Math.max(0, miningCarry - earned);
+        }
+        return earned > 0;
+      }
+
+      function render() {
+        const balance = balanceUnits / 2;
+        balanceElement.textContent = format(balance);
+        tapStat.textContent = format(tapUnits() / 2);
+        secondStat.textContent = format(upgrades.mining.level * multiplierUnits() / 2);
+        powerStat.textContent = `${format(multiplierUnits() / 2)}x`;
+        tapButton.setAttribute('aria-label', `Tap to earn Squeeks, ${format(tapUnits() / 2)} per tap`);
+        for (const control of controls) {
+          const upgrade = upgrades[control.kind];
+          const price = priceOf(upgrade);
+          control.level.textContent = `Level ${format(upgrade.level)}`;
+          control.price.textContent = format(price);
+          control.button.disabled = balanceUnits < price * 2;
+          control.progress.max = price;
+          control.progress.value = Math.min(balance, price);
+          control.progress.setAttribute('aria-valuetext', `${format(Math.min(balance, price))} of ${format(price)} Squeeks`);
+        }
+      }
+
+      /** @param {MouseEvent} event @param {number} amount */
+      function showTap(event, amount) {
+        const reduceMotion = prefersReducedMotion();
+        const bounds = stage.getBoundingClientRect();
+        const gain = document.createElement('span');
+        gain.className = 'tap-gain number';
+        gain.textContent = `+${format(amount)}`;
+        // Keyboard activation has no pointer position; put its feedback above the hamster.
+        const x = event.detail === 0 ? bounds.width / 2 : event.clientX - bounds.left;
+        const y = event.detail === 0 ? bounds.height * 0.3 : event.clientY - bounds.top;
+        gain.style.left = `${Math.max(28, Math.min(bounds.width - 28, x))}px`;
+        gain.style.top = `${Math.max(40, Math.min(bounds.height - 30, y))}px`;
+        // Bound the decoration even during very fast tapping; it never contains game state.
+        while (effects.children.length >= 16 || (reduceMotion && effects.firstChild)) effects.firstChild?.remove();
+        effects.append(gain);
+        window.setTimeout(() => gain.remove(), reduceMotion ? 350 : 700);
+        window.clearTimeout(pressTimer);
+        tapButton.classList.add('is-pressed');
+        pressTimer = window.setTimeout(() => tapButton.classList.remove('is-pressed'), 100);
+      }
+
+      tapButton.addEventListener('click', event => {
+        settleMining();
+        const earnedUnits = tapUnits();
+        balanceUnits += earnedUnits;
+        render();
+        showTap(event, earnedUnits / 2);
+        // Announce after tapping pauses, without speaking on every passive mining tick.
+        window.clearTimeout(earnTimer);
+        earnTimer = window.setTimeout(() => { earnStatus.textContent = `Balance: ${format(balanceUnits / 2)} Squeeks.`; }, 600);
+      });
+
+      for (const control of controls) {
+        control.button.addEventListener('click', () => {
+          settleMining();
+          const upgrade = upgrades[control.kind];
+          const costUnits = priceOf(upgrade) * 2;
+          if (balanceUnits < costUnits) { render(); return; }
+          balanceUnits -= costUnits;
+          upgrade.level += 1;
+          window.clearTimeout(earnTimer);
+          earnStatus.textContent = '';
+          shopStatus.textContent = `${upgrade.name} upgraded to level ${format(upgrade.level)}.`;
+          render();
+          // Native disabled buttons leave the tab order after spending; return to the main action.
+          if (control.button.disabled && document.activeElement === control.button) tapButton.focus({ preventScroll: true });
+        });
+      }
+
+      /** @param {boolean} open */
+      function setHelp(open) {
+        helpPanel.hidden = !open;
+        helpToggle.setAttribute('aria-expanded', String(open));
+      }
+      helpToggle.addEventListener('click', () => setHelp(helpPanel.hidden));
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && !helpPanel.hidden) {
+          setHelp(false);
+          helpToggle.focus();
+        }
+      });
+      /** @param {Event} event */
+      function dismissOutside(event) {
+        if (event.target instanceof Node && !helpPanel.contains(event.target) && !helpToggle.contains(event.target)) setHelp(false);
+      }
+      document.addEventListener('pointerdown', dismissOutside);
+      document.addEventListener('focusin', dismissOutside);
+      document.addEventListener('visibilitychange', () => { if (settleMining()) render(); });
+      window.setInterval(() => { if (settleMining()) render(); }, 100);
+      render();
+    })();
+  </script>
+</body>
+</html>

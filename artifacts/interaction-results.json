@@ -1,0 +1,215 @@
+{
+  "engineVersions": {
+    "chromium": "158.0.8127.18",
+    "webkit": "27.2"
+  },
+  "passed": 41,
+  "failed": 0,
+  "results": [
+    {
+      "name": "chromium: zero state, prices, progress, and unavailable upgrades",
+      "passed": true,
+      "durationMs": 161
+    },
+    {
+      "name": "chromium: keyboard help, exact instructions, Escape and focus return",
+      "passed": true,
+      "durationMs": 159
+    },
+    {
+      "name": "chromium: Space, Enter and touch earn Squeeks with honest tap feedback",
+      "passed": true,
+      "durationMs": 352
+    },
+    {
+      "name": "chromium: stake purchase deducts once, raises tap earnings and price",
+      "passed": true,
+      "durationMs": 59
+    },
+    {
+      "name": "chromium: mining starts at purchase and pays by elapsed time",
+      "passed": true,
+      "durationMs": 110
+    },
+    {
+      "name": "chromium: power multiplies both earnings and preserves fractional Squeeks",
+      "passed": true,
+      "durationMs": 102
+    },
+    {
+      "name": "chromium: repeat purchases, price growth, and delayed timer settlement",
+      "passed": true,
+      "durationMs": 274
+    },
+    {
+      "name": "chromium: offline taps and mining, no external requests or saved state",
+      "passed": true,
+      "durationMs": 122
+    },
+    {
+      "name": "chromium: reduced motion has static feedback and bounded effects",
+      "passed": true,
+      "durationMs": 363
+    },
+    {
+      "name": "chromium: no script, console, or resource errors",
+      "passed": true,
+      "durationMs": 0
+    },
+    {
+      "name": "chromium: 320px reflow and responsive layout",
+      "passed": true,
+      "durationMs": 250
+    },
+    {
+      "name": "chromium: 390px reflow and responsive layout",
+      "passed": true,
+      "durationMs": 305
+    },
+    {
+      "name": "chromium: 768px reflow and responsive layout",
+      "passed": true,
+      "durationMs": 273
+    },
+    {
+      "name": "chromium: 928px reflow and responsive layout",
+      "passed": true,
+      "durationMs": 283
+    },
+    {
+      "name": "chromium: 1440px reflow and responsive layout",
+      "passed": true,
+      "durationMs": 289
+    },
+    {
+      "name": "chromium: purchase feedback keeps the shop in place",
+      "passed": true,
+      "durationMs": 221
+    },
+    {
+      "name": "chromium: metadata assets resolve at a nested static hosting path",
+      "passed": true,
+      "durationMs": 81
+    },
+    {
+      "name": "chromium: 200% text enlargement reflows without horizontal scroll",
+      "passed": true,
+      "durationMs": 290
+    },
+    {
+      "name": "chromium: RTL mirror remains usable",
+      "passed": true,
+      "durationMs": 278
+    },
+    {
+      "name": "chromium: automated accessibility of initial and affordable states",
+      "passed": true,
+      "durationMs": 2417
+    },
+    {
+      "name": "chromium: forced colors retain visible keyboard focus",
+      "passed": true,
+      "durationMs": 203
+    },
+    {
+      "name": "webkit: zero state, prices, progress, and unavailable upgrades",
+      "passed": true,
+      "durationMs": 180
+    },
+    {
+      "name": "webkit: keyboard help, exact instructions, Escape and focus return",
+      "passed": true,
+      "durationMs": 160
+    },
+    {
+      "name": "webkit: Space, Enter and touch earn Squeeks with honest tap feedback",
+      "passed": true,
+      "durationMs": 369
+    },
+    {
+      "name": "webkit: stake purchase deducts once, raises tap earnings and price",
+      "passed": true,
+      "durationMs": 77
+    },
+    {
+      "name": "webkit: mining starts at purchase and pays by elapsed time",
+      "passed": true,
+      "durationMs": 121
+    },
+    {
+      "name": "webkit: power multiplies both earnings and preserves fractional Squeeks",
+      "passed": true,
+      "durationMs": 186
+    },
+    {
+      "name": "webkit: repeat purchases, price growth, and delayed timer settlement",
+      "passed": true,
+      "durationMs": 326
+    },
+    {
+      "name": "webkit: offline taps and mining, no external requests or saved state",
+      "passed": true,
+      "durationMs": 146
+    },
+    {
+      "name": "webkit: reduced motion has static feedback and bounded effects",
+      "passed": true,
+      "durationMs": 660
+    },
+    {
+      "name": "webkit: no script, console, or resource errors",
+      "passed": true,
+      "durationMs": 0
+    },
+    {
+      "name": "webkit: 320px reflow and responsive layout",
+      "passed": true,
+      "durationMs": 417
+    },
+    {
+      "name": "webkit: 390px reflow and responsive layout",
+      "passed": true,
+      "durationMs": 381
+    },
+    {
+      "name": "webkit: 768px reflow and responsive layout",
+      "passed": true,
+      "durationMs": 336
+    },
+    {
+      "name": "webkit: 928px reflow and responsive layout",
+      "passed": true,
+      "durationMs": 310
+    },
+    {
+      "name": "webkit: 1440px reflow and responsive layout",
+      "passed": true,
+      "durationMs": 310
+    },
+    {
+      "name": "webkit: purchase feedback keeps the shop in place",
+      "passed": true,
+      "durationMs": 260
+    },
+    {
+      "name": "webkit: metadata assets resolve at a nested static hosting path",
+      "passed": true,
+      "durationMs": 66
+    },
+    {
+      "name": "webkit: 200% text enlargement reflows without horizontal scroll",
+      "passed": true,
+      "durationMs": 497
+    },
+    {
+      "name": "webkit: RTL mirror remains usable",
+      "passed": true,
+      "durationMs": 309
+    },
+    {
+      "name": "webkit: automated accessibility of initial and affordable states",
+      "passed": true,
+      "durationMs": 2515
+    }
+  ]
+}

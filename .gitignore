@@ -1,0 +1,13 @@
+# Explicit included path budget: /artifacts/ <= 2,097,152 bytes for review receipts
+# and selected screenshots. Re-include these deliverables over inherited ignores.
+!/artifacts/
+!/artifacts/**
+# Explicit submission path budget: 0 bytes for each generated directory below.
+# Directory names without a leading slash match at every nesting level.
+node_modules/
+.cache/
+.npm/
+# Worker-only tools, downloaded browsers, caches, and transient test evidence.
+# This exact scratch directory is also removed by the submission runner.
+/test/scratch/
+# dist/ and assets/ are intentional deliverables; never ignore them.
